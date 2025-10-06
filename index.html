@@ -5,8 +5,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Data Table</title>
-   <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
-       <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+  <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
 
   <link href="./dist/output.css" rel="stylesheet" />
 </head>
@@ -14,9 +16,23 @@
 <body id="Body" class="bg-slate-300">
   <div id="mainscreen" class="overflow-hidden flex justify-center z-10">
     <div id="TableCon" class="bg-white shadow-lg rounded-lg border border-gray-200 p-4 w-[90%] max-w-5xl mt-20">
-      <div >
-      <button id="export" class="bg-orange-500 px-10 py-2 mb-4 hover hover:bg-orange-600  rounded-md font-medium">export</button>
-    </div>
+      <div class="flex justify-between">
+        <div class="relative">
+          <button id="export"
+            class="bg-orange-500 px-10 py-2 mb-4  hover:bg-orange-600  rounded-md font-medium">export</button>
+            <div class="exportButtons shadow-md absolute left-0 top-12 bg-white border-2 rounded-lg p-6  flex flex-col">
+              <button class="csv text-white bg-orange-500 hover:bg-orange-600 my-2 w-20 p-2 rounded-md">As CSV</button>
+              <button class="pdf text-white bg-orange-500 hover:bg-orange-600 my-2 w-20 p-2 rounded-md">As Pdf</button>
+              <button class="excel text-white bg-orange-500 hover:bg-orange-600 my-2 w-20 p-2 rounded-md">As Excel</button>
+            </div>
+        </div>
+        <div>
+          <button id="ADD"
+            class="bg-orange-500 px-10 py-2 hover hover:bg-orange-600 shadow-md rounded-md font-medium transition-colors to-orange-500 ease-in-out">
+            Add
+          </button>
+        </div>
+      </div>
       <div class="flex justify-between items-center mb-4">
         <div class="pagination-header">
           <select id="sel" class="border border-gray-300 rounded px-2 py-1 text-sm">
@@ -27,12 +43,7 @@
           </select>
           <span class="ml-2 text-sm">entries per page</span>
         </div>
-        <div>
-          <button id="ADD"
-            class="bg-orange-500 px-10 py-2 hover hover:bg-orange-600 shadow-md rounded-md font-medium transition-colors to-orange-500 ease-in-out">
-            Add
-          </button>
-        </div>
+
         <div>
           <label for="search" class="mr-2 text-sm">Search:</label>
           <input id="Search" type="text" class="border border-gray-300 rounded px-2 py-1 text-sm" />
@@ -43,14 +54,14 @@
         <table id="dataTable" class="w-full text-sm text-left">
           <thead class="bg-gray-100 border-b">
             <tr>
-               <th class="p-2 font-medium">
+              <th class="p-2 font-medium">
                 <div class="flex justify-between items-center">
                   <span>ID </span>
                   <div class="flex gap-1">
                     <img id="idImg" class="h-4 hidden" src="asset/sort-solid-full.svg" alt="sort" />
                     <img id="idImg1" class="h-4" src="asset/arrow-up-short-wide-solid-full.svg" alt="sort" />
                     <img id="idImg2" class="h-4 hidden" src="asset/arrow-down-wide-short-solid-full.svg" alt="" />
-                    
+
                   </div>
                 </div>
               </th>
@@ -61,7 +72,7 @@
                     <img id="nameImg" class="h-4 hidden" src="asset/sort-solid-full.svg" alt="sort" />
                     <img id="nameImg1" class="h-4" src="asset/arrow-up-short-wide-solid-full.svg" alt="sort" />
                     <img id="nameImg2" class="h-4 hidden" src="asset/arrow-down-wide-short-solid-full.svg" alt="" />
-                    
+
                   </div>
                 </div>
               </th>
@@ -72,7 +83,7 @@
                     <img id="posImg" class="h-4" src="asset/sort-solid-full.svg" alt="sort" />
                     <img id="posImg1" class="h-4 hidden" src="asset/sort-down-solid-full.svg" alt="sort" />
                     <img id="posImg2" class="h-4 hidden" src="asset/sort-up-solid-full.svg" alt="sort" />
-                    
+
                   </div>
                 </div>
               </th>
@@ -83,7 +94,7 @@
                     <img id="offImg" class="h-4" src="asset/sort-solid-full.svg" alt="sort" />
                     <img id="offImg1" class="h-4 hidden" src="asset/sort-down-solid-full.svg" alt="sort" />
                     <img id="offImg2" class="h-4 hidden" src="asset/sort-up-solid-full.svg" alt="sort" />
-                
+
                   </div>
                 </div>
               </th>
@@ -94,7 +105,7 @@
                     <img id="ageImg" class="h-4" src="asset/sort-solid-full.svg" alt="sort" />
                     <img id="ageImg1" class="h-4 hidden" src="asset/sort-down-solid-full.svg" alt="sort" />
                     <img id="ageImg2" class="h-4 hidden" src="asset/sort-up-solid-full.svg" alt="sort" />
-                    
+
                   </div>
                 </div>
               </th>
@@ -106,7 +117,7 @@
             </tr>
           </thead>
           <tbody id="tableBody" class="tableBody">
-         
+
           </tbody>
           <tfoot>
             <tr class="border-b hover:bg-gray-50">
@@ -114,7 +125,7 @@
               <td class="p-2 font-semibold">Position</td>
               <td class="p-2 font-semibold">Office</td>
               <td class="p-2 font-semibold text-end">Age</td>
-               <td class="p-2 font-semibold text-center">Action</td>
+              <td class="p-2 font-semibold text-center">Action</td>
             </tr>
           </tfoot>
         </table>
@@ -124,20 +135,12 @@
         <span id="pagination-details" class=""></span>
 
         <div id="pagination-btns" class="flex items-center gap-2">
-          <!-- <a href="#" class="px-2 py-1 border rounded hover:bg-slate-500 ">&#60;</a>
-          <a href="#" class="px-2 py-1 border rounded hover:bg-slate-500 active:bg-black">1</a>
 
-          <a href="#" class="px-2 py-1 border rounded hover:bg-slate-500">2</a>
-          <a href="#" class="px-2 py-1 border rounded hover:bg-slate-500">3</a>
-
-          <a href="#" class="px-2 py-1 border rounded hover:bg-slate-500">4</a>
-          <a href="#" class="px-2 py-1 border rounded hover:bg-slate-500">5</a>
-          <a href="#" class="px-2 py-1 border rounded hover:bg-slate-500">&#62;</a> -->
         </div>
       </div>
     </div>
 
-    
+
     <div id="Main" class="h-screen w-screen bg-black  fixed z-10  flex justify-center items-center">
       <div id="Modal" class="px-4 bg-white shadow-2xl rounded-lg w-[100vh]">
         <div class="flex justify-end">
@@ -148,10 +151,10 @@
           <div class="flex flex-col items-center justify-center">
             <p class="text-center py-2 text-xl font-medium">Enter Details</p>
             <form name="myForm" onsubmit=" return validateForm()">
-              
-              
+
+
               <div class="grid grid-cols-2 gap-x-20">
-                  <div id="input0" class="forInput flex flex-col my-2">
+                <div id="input0" class="forInput flex flex-col my-2">
                   <label class="text-2xl" for="">ID</label>
                   <input id="Id" name="fid" class="border border-gray-300 rounded px-2 py-1 text-sm shadow-md h-10"
                     type="text" placeholder="ID" />
@@ -180,7 +183,7 @@
                     placeholder="Age" type="number" />
                   <span class="errorMsg text-red-600"></span>
                 </div>
-                
+
               </div>
               <div class="flex justify-center">
                 <input id="Submit"
@@ -201,9 +204,9 @@
         <div>
           <div class="flex flex-col items-center justify-center">
             <p class="text-center py-2 text-xl font-medium">Edit Details</p>
-            <form name="myForm" >
+            <form name="myForm">
               <div class="grid grid-cols-2 gap-x-20">
-                  <div id="Einput0" class="forInput flex flex-col my-2">
+                <div id="Einput0" class="forInput flex flex-col my-2">
                   <label class="text-2xl" for="">ID</label>
                   <input id="EId" name="fid" class="border border-gray-300 rounded px-2 py-1 text-sm shadow-md h-10"
                     type="text" placeholder="ID" />
@@ -222,8 +225,8 @@
                 </div>
                 <div id="Einput3" class="forInput flex flex-col my-2">
                   <label class="text-2xl" for="">Office</label>
-                  <input id="EOffice" class="border border-gray-300 rounded px-2 py-1 text-sm shadow-md h-10" type="text"
-                    placeholder="Location" />
+                  <input id="EOffice" class="border border-gray-300 rounded px-2 py-1 text-sm shadow-md h-10"
+                    type="text" placeholder="Location" />
                   <span class="errorMsg text-red-600"></span>
                 </div>
                 <div id="Einput4" class="forInput flex flex-col my-2">
@@ -232,7 +235,7 @@
                     placeholder="Age" type="number" />
                   <span class="errorMsg text-red-600"></span>
                 </div>
-               
+
               </div>
               <div class="flex justify-center">
                 <input id="ESubmit"
@@ -244,19 +247,20 @@
         </div>
       </div>
     </div>
-      <div id="DMain" class="h-screen w-screen bg-black  fixed z-10 flex justify-center items-center">
+    <div id="DMain" class="h-screen w-screen bg-black  fixed z-10 flex justify-center items-center">
       <div id="DModal" class="px-4 bg-white shadow-2xl rounded-lg w-[100vh]">
-      
+
 
         <div>
           <div class="flex flex-col items-center justify-center mt-10">
             <p class="text-center py-2 text-xl font-medium">Confirm Delete</p>
             <div class=" h-20 w-40 flex justify-between my-16">
-                <button id="confirmDelete" class="bg-green-700 h-10 px-6  mx-2 rounded-md shadow-md text-white">Yes</button> 
-                <button id="Dbtn" class="bg-red-700 h-10 px-6 mx-2 rounded-md shadow-md text-white">No</button>
-            </div>    
-           
-            
+              <button id="confirmDelete"
+                class="bg-green-700 h-10 px-6  mx-2 rounded-md shadow-md text-white">Yes</button>
+              <button id="Dbtn" class="bg-red-700 h-10 px-6 mx-2 rounded-md shadow-md text-white">No</button>
+            </div>
+
+
           </div>
         </div>
       </div>

@@ -13,10 +13,11 @@ const dataTable = document.getElementById("dataTable");
 const search = document.getElementById("Search");
 const dmain = document.getElementById("DMain")
 const dbtn = document.getElementById("Dbtn");
-const confirmdelete = document.getElementById("confirmDelete")
+const confirmdelete = document.getElementById("confirmDelete");
+const exp = document.querySelector(".exportButtons")
 
 
-
+exp.classList.add("hidden")
 main.classList.add("hidden")
 dmain.classList.add("hidden")
 const id = document.getElementById("Id");
@@ -109,12 +110,12 @@ search.addEventListener("input", () => {
   }
 });
 
-const exportBtn = document.getElementById("export").addEventListener('click',()=>{
+const exportBtn = document.getElementById("export").addEventListener('click',(e)=>{
+  e.stopPropagation()
+  e.preventDefault()
 
-     
-    const tablee = document.getElementById('dataTable');
-    const workbook = XLSX.utils.table_to_book(tablee);
-    XLSX.writeFile(workbook, 'exported_data.csv'); 
+     exp.classList.toggle("hidden")
+  
 
 })
 
@@ -129,4 +130,57 @@ new Sortable(table, {
 
 
  
+ tableCon.addEventListener('click',(e)=>{
+   e.stopPropagation()
+  e.preventDefault()
+  exp.classList.add("hidden")
+})
 
+const csv = document.querySelector('.csv')
+csv.addEventListener('click',(e)=>{
+   e.stopPropagation()
+  e.preventDefault()
+   exportAs("exported_data.csv")
+
+})
+const excel = document.querySelector('.excel')
+excel.addEventListener('click',(e)=>{
+   e.stopPropagation()
+  e.preventDefault()
+  
+  
+   exportAs("exported_data.xlsx")
+
+})
+
+const pdf = document.querySelector('.pdf')
+pdf.addEventListener('click',(e)=>{
+   e.stopPropagation()
+  e.preventDefault()
+  
+  
+   exportTableToPdf()
+
+})
+
+
+function exportAs(type){
+  const tablee = document.getElementById('dataTable');
+    const workbook = XLSX.utils.table_to_book(tablee);
+    XLSX.writeFile(workbook, type); 
+
+}
+
+   function exportTableToPdf() {
+       const { jsPDF } = window.jspdf;
+       const doc = new jsPDF();
+
+       
+       const table = document.getElementById('dataTable');
+
+       
+       doc.autoTable({ html: table });
+
+       
+       doc.save('table.pdf');
+   }
