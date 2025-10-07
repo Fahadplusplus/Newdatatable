@@ -63,6 +63,8 @@ function addRows(jsonObj) {
     deleteBtn.addEventListener("click", (e) => {
       e.stopPropagation();
       e.preventDefault();
+     
+      
 
       let userChoice = confirm("Do you want to proceed?");
 
@@ -79,8 +81,14 @@ function addRows(jsonObj) {
           detailsRow.remove();
         }
         localStorage.setItem("tableData", JSON.stringify(jsonObj));
-        tb.innerHTML = "";
-        addRows(jsonObj);
+         tb.innerHTML = "";
+         addRows(jsonObj);
+         pageDetails.innerHTML = `showing ${(currentPage - 1) * records_per_page + 1 } to ${Math.min(currentPage * records_per_page, jsonObj.length)} of ${jsonObj.length }`;
+
+        total_pages = Math.ceil(total_record / records_per_page ); 
+
+displayRecords(currentPage);
+genPage();
         
       } else {
       }

@@ -1,12 +1,13 @@
 const selectElement = document.getElementById("sel");
 const pageDetails = document.getElementById("pagination-details");
+const total_record = document.querySelectorAll("#tableBody tr").length;
 
 let records_per_page = 10;
 let currentPage = 1;
 let total_pages = 1;
 
-const total_record = document.querySelectorAll("#tableBody tr").length   ;
-total_pages = Math.ceil(total_record / records_per_page ); 
+
+total_pages = Math.ceil(jsonObj.length  / records_per_page ); 
 
 displayRecords(currentPage);
 genPage();
@@ -30,7 +31,10 @@ function genPage() {
   let nextBtn = `<a href="#" id="nextBtn" class="px-2 py-1 border rounded hover:bg-slate-500">&#62;</a>`;
 
   let buttons = "";
+    
+
   for (let i = 1; i <= total_pages; i++) {
+      
     buttons += `<a href="#" class="page-btn px-2 py-1 border rounded hover:bg-slate-500 ${i === currentPage ? "bg-blue-500 text-black" : ""}" data-page="${i}">${i}</a>`;
   }
 
@@ -44,7 +48,7 @@ function genPage() {
       currentPage = parseInt(btn.dataset.page);
       displayRecords(currentPage);
       genPage();
-      pageDetails.innerHTML = `showing ${(currentPage - 1) * records_per_page + 1 } to ${Math.min(currentPage * records_per_page, total_record)} of ${total_record }`;
+      pageDetails.innerHTML = `showing ${(currentPage - 1) * records_per_page + 1 } to ${Math.min(currentPage * records_per_page, jsonObj.length)} of ${jsonObj.length }`;
     });
   });
 
@@ -54,7 +58,7 @@ function genPage() {
       currentPage--;
       displayRecords(currentPage);
       genPage();
-       pageDetails.innerHTML = `showing ${(currentPage - 1) * records_per_page + 1 } to ${Math.min(currentPage * records_per_page, total_record)} of ${total_record }`;
+       pageDetails.innerHTML = `showing ${(currentPage - 1) * records_per_page + 1 } to ${Math.min(currentPage * records_per_page, jsonObj.length)} of ${jsonObj.length }`;
     }
   });
 
@@ -64,7 +68,7 @@ function genPage() {
       currentPage++;
       displayRecords(currentPage);
       genPage();
-       pageDetails.innerHTML = `showing ${(currentPage - 1) * records_per_page + 1 } to ${Math.min(currentPage * records_per_page, total_record)} of ${total_record }`;
+       pageDetails.innerHTML = `showing ${(currentPage - 1) * records_per_page + 1 } to ${Math.min(currentPage * records_per_page, jsonObj.length)} of ${jsonObj.length }`;
     }
   });
 }
@@ -72,18 +76,23 @@ function genPage() {
 selectElement.addEventListener('change', (event) => {
   let selectedValue = event.target.value;
 
-  if (selectedValue < total_record){
-     records_per_page = selectedValue;
+  console.log(selectedValue);
   
-  const total_record = document.querySelectorAll("#tableBody tr").length;
+  
+     records_per_page = selectedValue;
+  tb.innerHTML = "";
+         addRows(jsonObj);
+  
   total_pages = Math.ceil(total_record / records_per_page ); 
   displayRecords(currentPage);
   genPage();
-  
-  pageDetails.innerHTML = `showing ${(currentPage - 1) * records_per_page + 1 } to ${Math.min(currentPage * records_per_page, total_record)} of ${total_record }`;
 
-  }
+  
+  pageDetails.innerHTML = `showing ${(currentPage - 1) * records_per_page + 1 } to ${Math.min(currentPage * records_per_page, jsonObj.length)} of ${jsonObj.length }`;
+
+  console.log(jsonObj.length);
+  
  
 });
 
-pageDetails.innerHTML = `showing 1 to ${Math.min(records_per_page, total_record)} of ${total_record}`;
+pageDetails.innerHTML = `showing 1 to ${Math.min(records_per_page, jsonObj.length)} of ${jsonObj.length}`;

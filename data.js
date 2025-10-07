@@ -66,39 +66,58 @@ if (savedData == false) {
     },
     {
       Id: "009",
-      fullname: "iJohn Doe",
-      position: "ux",
-      office: "NYh",
-      age: 38,
+      fullname: "fJohn Doe",
+      position: "designer",
+      office: "NYe",
+      age: 35,
     },
     {
       Id: "010",
-      fullname: "jJohn Doe",
-      position: "web developer",
-      office: "NYi",
-      age: 39,
+      fullname: "gJohn Doe",
+      position: "programmer",
+      office: "NYf",
+      age: 36,
     },
-    { 
-      Id: "011",
-      fullname: "kJohn Doe",
-      position: "developer",
-      office: "NYj",
-      age: 40,
-    },
+
     {
+      Id: "011",
+      fullname: "hJohn Doe",
+      position: "ui",
+      office: "NYg",
+      age: 37,
+    },
+     {
       Id: "012",
-      fullname: "lJohn Doe",
-      position: "Manager",
-      office: "NYk",
-      age: 41,
+      fullname: "hJohn Doe",
+      position: "ui",
+      office: "NYg",
+      age: 37,
     },
     {
       Id: "013",
-      fullname: "mJohn Doe",
-      position: "Manager",
-      office: "NYl",
-      age: 42,
+      fullname: "fJohn Doe",
+      position: "designer",
+      office: "NYe",
+      age: 35,
     },
+    {
+      Id: "014",
+      fullname: "gJohn Doe",
+      position: "programmer",
+      office: "NYf",
+      age: 36,
+    },
+
+    {
+      Id: "015",
+      fullname: "hJohn Doe",
+      position: "ui",
+      office: "NYg",
+      age: 37,
+    },
+   
+   
+     
   ];
 
   localStorage.setItem("tableData", JSON.stringify(jsonObj));

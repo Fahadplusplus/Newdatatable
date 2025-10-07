@@ -19,7 +19,7 @@ const exp = document.querySelector(".exportButtons")
 
 exp.classList.add("hidden")
 main.classList.add("hidden")
-dmain.classList.add("hidden")
+
 const id = document.getElementById("Id");
 const fullName = document.getElementById("Name");
 const position = document.getElementById("Position");
@@ -49,16 +49,28 @@ submit.addEventListener("click", (e) => {
 
   if (isValid) {
     formdata();
-    tb.innerHTML = "";
-    addRows(jsonObj);
+   
    clearErrors();
      clearform();
     main.classList.add("hidden")
+      body.classList.remove("overflow-hidden");
+       tb.innerHTML = "";
+    addRows(jsonObj);
+        pageDetails.innerHTML = `showing ${(currentPage - 1) * records_per_page + 1 } to ${Math.min(currentPage * records_per_page, jsonObj.length)} of ${jsonObj.length }`;
+
+        total_pages = Math.ceil(total_record / records_per_page ); 
+
+displayRecords(currentPage);
+genPage();
+
     
   }
 });
 
 btn.addEventListener("click", (e) => {
+
+  getIds(0)
+  id.value ="0"+ ele++
   main.classList.remove("hidden");
 
   main.style.backgroundColor = "rgba(000, 0, 0, 0.5)";
@@ -78,6 +90,7 @@ mbtn.addEventListener("click", () => {
 
 
 function clearform() {
+  
   fullName.value = "";
   position.value = "";
   office.value = "";

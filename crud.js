@@ -76,6 +76,10 @@ Esubmit.addEventListener("click", (e) => {
 tb.innerHTML = "";
 addRows(jsonObj)
 
+total_pages = Math.ceil(total_record / records_per_page ); 
+
+displayRecords(currentPage);
+genPage();
   
 
   currentEditIndex = "";
@@ -85,46 +89,7 @@ addRows(jsonObj)
  
 });
 
-//  confirmdelete.addEventListener("click", (e) => {
-//       e.stopPropagation();
-//       e.preventDefault();
 
-      
-//       const index = parseInt(e.target.getAttribute("data-index"));
-//       const data = jsonObj[index];
-
-      
-//       jsonObj.splice(index, 1);
-
-      
-//       const row = e.target.closest('tr'); 
-//       row.remove(); 
-
-//       const detailsRow = row.nextElementSibling;
-//       if (detailsRow) {
-//         detailsRow.remove(); 
-//       }
-
-      
-
-//       console.log(`Deleted row with data:`, data);
-//     });
-
-
-//    deleteBtn.addEventListener("click", (e) => {
-//       e.stopPropagation();
-//       e.preventDefault();
-//       dmain.classList.remove("hidden")
-//        dmain.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
-//     body.classList.add("overflow-hidden");
-//     });
-
-// dbtn.addEventListener('click', (e)=>{
-//   e.stopPropagation();
-//       e.preventDefault();
-//         dmain.classList.add("hidden")
-//          body.classList.remove("overflow-hidden");
-// })
 
 
 

@@ -2,28 +2,6 @@ function validateForm() {
   let returnVal = true;
 
 
-  
-function getIds(columnIndex) {
-    const tbody = dataTable.tBodies[0];
-    const rows = Array.from(tbody.querySelectorAll("tr"));
-    
-    return rows.map(row => row.cells[columnIndex].textContent.trim());
-}
-
-
-const enteredId = Id.value.trim();
-
-if (enteredId.length !== 3) {
-    setError("input0", "Enter a valid ID");
-    returnVal = false;
-} else {
-    const existingIds = getIds(0);
-
-    if (existingIds.includes(enteredId)) {
-        setError("input0", "ID already exists");
-        returnVal = false;
-    }
-}
 
   if (fullName.value.trim().length < 3 || !/^[A-Za-z\s]+$/.test(fullName.value.trim()) || fullName.value.trim().length > 15) {
     setError("input1", "Enter a valid name");
@@ -67,31 +45,8 @@ function clearErrors() {
 
 function EvalidateForm() {
   let returnVal = true;
-     if (EId.value.trim().length !== 3) {
-    setError("Einput0", "Enter a valid ID");
-    returnVal = false;
-  }
-  function getIds(columnIndex) {
-    const tbody = dataTable.tBodies[0];
-    const rows = Array.from(tbody.querySelectorAll("tr"));
-    
-    return rows.map(row => row.cells[columnIndex].textContent.trim());
-}
-
-
-const enteredId = EId.value.trim();
-
-if (enteredId.length !== 3) {
-    setError("Einput0", "Enter a valid ID");
-    returnVal = false;
-} else {
-    const existingIds = getIds(0);
-
-    if (existingIds.includes(enteredId)) {
-        setError("Einput0", "ID already exists");
-        returnVal = false;
-    }
-}
+   
+ 
 
 
   if (EfullName.value.trim().length < 3 || !/^[A-Za-z\s]+$/.test(EfullName.value.trim()) || EfullName.value.trim().length > 15) {

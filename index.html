@@ -121,10 +121,11 @@
           </tbody>
           <tfoot>
             <tr class="border-b hover:bg-gray-50">
+              <td class="p-2 font-semibold">ID</td>
               <td class="p-2 font-semibold">Name</td>
               <td class="p-2 font-semibold">Position</td>
               <td class="p-2 font-semibold">Office</td>
-              <td class="p-2 font-semibold text-end">Age</td>
+              <td class="p-2 font-semibold ">Age</td>
               <td class="p-2 font-semibold text-center">Action</td>
             </tr>
           </tfoot>
@@ -156,7 +157,7 @@
               <div class="grid grid-cols-2 gap-x-20">
                 <div id="input0" class="forInput flex flex-col my-2">
                   <label class="text-2xl" for="">ID</label>
-                  <input id="Id" name="fid" class="border border-gray-300 rounded px-2 py-1 text-sm shadow-md h-10"
+                  <input id="Id" name="fid" readonly class="border border-gray-300 rounded px-2 py-1 text-sm shadow-md h-10"
                     type="text" placeholder="ID" />
                   <span class="errorMsg text-red-600"></span>
                 </div>
@@ -206,9 +207,9 @@
             <p class="text-center py-2 text-xl font-medium">Edit Details</p>
             <form name="myForm">
               <div class="grid grid-cols-2 gap-x-20">
-                <div id="Einput0" class="forInput flex flex-col my-2">
+                <div id="Einput0" class="forInput flex flex-col my-2" >
                   <label class="text-2xl" for="">ID</label>
-                  <input id="EId" name="fid" class="border border-gray-300 rounded px-2 py-1 text-sm shadow-md h-10"
+                  <input id="EId" name="fid" readonly class="border border-gray-300 rounded px-2 py-1 text-sm shadow-md h-10"
                     type="text" placeholder="ID" />
                   <span class="errorMsg text-red-600"></span>
                 </div>
@@ -247,24 +248,7 @@
         </div>
       </div>
     </div>
-    <div id="DMain" class="h-screen w-screen bg-black  fixed z-10 flex justify-center items-center">
-      <div id="DModal" class="px-4 bg-white shadow-2xl rounded-lg w-[100vh]">
-
-
-        <div>
-          <div class="flex flex-col items-center justify-center mt-10">
-            <p class="text-center py-2 text-xl font-medium">Confirm Delete</p>
-            <div class=" h-20 w-40 flex justify-between my-16">
-              <button id="confirmDelete"
-                class="bg-green-700 h-10 px-6  mx-2 rounded-md shadow-md text-white">Yes</button>
-              <button id="Dbtn" class="bg-red-700 h-10 px-6 mx-2 rounded-md shadow-md text-white">No</button>
-            </div>
-
-
-          </div>
-        </div>
-      </div>
-    </div>
+  
   </div>
   <script src="data.js"></script>
   <script src="app.js"></script>
